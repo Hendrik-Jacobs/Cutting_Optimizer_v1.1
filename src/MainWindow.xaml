@@ -1,0 +1,280 @@
+﻿<Window x:Class="Cutting_Optimizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cutting_Optimizer"
+        mc:Ignorable="d"
+        Title="Cutting Optimizer" x:Name="wind" Height="800" Width="900" FontFamily="Segoe UI Semibold" Background="#FF323232" Foreground="Black" FontSize="11"
+        SizeChanged="UpdateSize"
+        MinHeight="600"
+        MinWidth="600"
+        Closing="CloseWindow"
+        KeyDown="WindowKeyDown"
+        WindowState="Maximized"
+        >
+
+    
+
+    <Grid x:Name="grid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="TitleText" Text="Cutting Optimizer 1.1" FontWeight="Bold" Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="4" HorizontalAlignment="Center" FontSize="18" Foreground="#FFEAEAEE" Margin="0, 0, 0, 5"/>
+        <TextBlock Grid.Column="0" Grid.Row="2"  Grid.ColumnSpan="6" Background="#FF616266" Height="3"/>
+
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+            <Button x:Name="save_btn" Content="Save" Width="55" Margin="0, 0, 5, 0" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Height="18" Click="ClickSaveButton" ToolTip="Key: S"/>
+            <Button x:Name="load_btn" Content="Load" Width="55" Margin="0, 0, 5, 0" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Height="18" Click="ClickLoadButton" ToolTip="Key: L"/>
+            <Button x:Name="save_img_btn" Content="Save Img" Width="60" Margin="0, 0, 5, 0"  Background="#FF1A1A1B" Foreground="#FFEAEAEE" Height="18" Click="ClickSaveImageButton" ToolTip="Key: I"/>
+            <Button x:Name="run_btn" Content="Run" Width="60" Height="18" Margin="0, 0, 5, 0"  Background="#FF1A1A1B" Foreground="#FFEAEAEE" Click="ClickRun" ToolTip="Key: R"/>
+            <Button x:Name="options_btn" Content="Options" Width="60" Margin="5, 0, 5, 0" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Height="18" Click="ClickOptions" ToolTip="Key: O"/>
+            <Button x:Name="help_btn" Content="Help" Width="40" Margin="0, 0, 5, 0" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Height="18" Click="ClickHelp" ToolTip="Key: H"/>
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="3" Grid.Column="3" Orientation="Horizontal">
+            <Button x:Name="oneD_btn" Content="1D" Width="40" Margin="10, 0, 3, 0" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Height="18" Click="Click1D" ToolTip="Key: Q"/>
+            <Button x:Name="twoD_btn" Content="2D" Width="40" Margin="0, 0, 5, 0" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Height="18" Click="Click2D" ToolTip="Key: W"/>
+        </StackPanel>
+
+        <Button x:Name="close_btn" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Right" Content="Close" Width="40" Margin="0, 0, 10, 0" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Height="18" Click="ClickClose"/>
+
+
+        <TextBlock Grid.Column="0" Grid.Row="4"  Grid.ColumnSpan="6" Background="#FF616266" Height="3"/>
+        <TextBlock Grid.Column="2" Grid.Row="4"  Grid.RowSpan="7" Background="#FF616266" Width="3"/>
+        <TextBlock Grid.Column="4" Grid.Row="4"  Grid.RowSpan="7" Background="#FF616266" Width="3"/>
+
+
+        <ScrollViewer x:Name="scroll" Grid.Column="1" Grid.Row="5" Grid.RowSpan="6" Margin="0, 10, 10, 10" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" MinHeight="300" MinWidth="300">
+            <Canvas x:Name="canvas" Background="#FFA9AAAC" Height="1000" Width="1000"/>
+        </ScrollViewer>
+
+
+
+
+
+
+
+        <StackPanel Grid.Column="3" Grid.Row="5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="BoardXText" Text="Board X:" HorizontalAlignment="Center" Margin="27, 8, 0, 0" Foreground="#FFEAEAEE"/>
+                <TextBlock x:Name="BoardYText"  Text="Board Y:" HorizontalAlignment="Center" Margin="61, 8, 0, 0" Foreground="#FFEAEAEE"/>
+            </StackPanel>
+
+
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="bxbox" Text="0" Width="90" Height="18" Margin="27, 0, 3, 10" GotKeyboardFocus="KeySelectedBox" PreviewTextInput="PreviewText"/>
+                <TextBox x:Name="bybox" Text="0" Width="90" Height="18" Margin="10, 0, 0, 10" GotKeyboardFocus="KeySelectedBox" PreviewTextInput="PreviewText"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Amount:" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFEAEAEE" Margin="27, 0, 0, 0"/>
+                <TextBlock Text="Price:" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFEAEAEE" Margin="61, 0, 0, 0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="babox" Text="0" Width="90" Height="18" Margin="27,0,3,10" GotKeyboardFocus="KeySelectedBox" ToolTip="Price per board." PreviewTextInput="PreviewText"/>
+                <TextBox x:Name="pbox" Text="0,00" Width="90" Height="18" Margin="10,0,3,10" GotKeyboardFocus="KeySelectedBox" ToolTip="Price per board." PreviewTextInput="PreviewText"/>
+            </StackPanel>
+
+
+            <TextBlock Text="Thickness:"  Margin="27, 0, 0, 0" Foreground="#FFEAEAEE"/>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="btbox" Text="0" Width="90" Height="18" Margin="27, 2, 3, 10" GotKeyboardFocus="KeySelectedBox" PreviewTextInput="PreviewText"/>
+                <Button x:Name="add_board_btn" Content="Add" HorizontalAlignment="Center" Width="80" Height="18" Margin="13, 2, 0, 10" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Click="ClickAddBoard"/>
+            </StackPanel>
+
+            
+
+
+            <TextBlock Background="#FF616266" Height="3" Foreground="#FFEAEAEE"/>
+
+
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="stock_btn" Content="Stock Manager" HorizontalAlignment="Center" Width="95" Height="35" Margin="26, 10, 0, 10" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Click="ClickBoardManager" ToolTip="Key: M"/>
+                <TextBlock Text="Use Stock: " Height="18" Margin="18, 12, 5, 10"  Foreground="#FFEAEAEE" ToolTip="Key: U"/>
+                <CheckBox x:Name="useStockbox" Margin=" 10, 20, 20, 20" ToolTip="Key: U"/>
+            </StackPanel>
+
+            <Button x:Name="delUsed_btn" Content="Delete used Boards from stock" HorizontalAlignment="Center" Width="200" Height="22" Margin="5, 0, 0, 10" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Click="ClickDelUsed"/>
+            
+            <TextBlock Background="#FF616266" Height="3" Foreground="#FFEAEAEE"/>
+            <TextBlock Text="Boardlist:" Margin="10, 4, 0, 2" Foreground="#FFEAEAEE"/>
+        </StackPanel>
+
+
+
+        <ListView Grid.Column="3" Grid.Row="6" x:Name="board_box" Width="234" Margin="10, 0, 3, 10">
+                <ListView.View>
+                    <GridView x:Name="boardgrdNames">
+                    <GridViewColumn Width="37" DisplayMemberBinding="{Binding Width}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="BoardWidth" Click="SetOrder" Content=" x  &#x25B2;"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="37" DisplayMemberBinding="{Binding Height}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="BoardHeight" Click="SetOrder" Content="  y  &#x25B2;"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="37" DisplayMemberBinding="{Binding Thickness}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="BoardThickness" Click="SetOrder" Content="  T  &#x25B2;"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="37" DisplayMemberBinding="{Binding Amount_string}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="BoardAmount" Click="SetOrder" Content=" A  &#x25B2;"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="37" DisplayMemberBinding="{Binding Price_string}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="BoardPrice" Click="SetOrder" Content="Price&#x25B2;"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="47" DisplayMemberBinding="{Binding Bar}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="BoardBar" Click="SetOrder" Content= "Bar &#x25B2;"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+        <StackPanel Grid.Column="3" Grid.Row="7">
+
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="BoardAdd" Content="+" Width="40" Height="18" Margin="27, 0, 0, 5" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Click="ClickBoardAdd"/>
+                <Button x:Name="BoardSub" Content="-" Width="40" Height="18" Margin="10, 0, 3, 5" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Click="ClickBoardSub"/>
+                <Button x:Name="BoardUp" Content="Up" Width="40" Height="18" Margin="10, 0, 0, 5" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Click="ClickBoardUp"/>
+                <Button x:Name="BoardDown" Content="Down" Width="40" Height="18" Margin="10, 0, 3, 5" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Click="ClickBoardDown"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"> 
+                <Button x:Name="del_board_btn" Content="Remove" HorizontalAlignment="Center" Width="90" Height="18" Margin="27, 2, 3, 10" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Click="ClickDelBoard"/>
+                <Button x:Name="del_all_boards_btn" Content="Remove All" HorizontalAlignment="Center" Width="90" Height="18" Margin="10, 2, 3, 10" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Click="ClickDelAllBoards"/>
+            </StackPanel>
+
+            <TextBlock Background="#FF616266" Height="3" Foreground="#FFEAEAEE"/>
+
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Space 1D:" HorizontalAlignment="Center" Foreground="#FFEAEAEE" Margin="27, 10, 3, 0" x:Name="SpaceText"/>
+                <TextBlock Text="Space 2D:" HorizontalAlignment="Center" Foreground="#FFEAEAEE" Margin="54, 10, 3, 0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="s1dbox" Text="0" Width="90" Height="18" Margin="27, 3, 3, 10" GotKeyboardFocus="KeySelectedBox" ToolTip="Space between Parts." PreviewTextInput="PreviewText"/>
+                <TextBox x:Name="sbox" Text="0" Width="90" Height="18" Margin="10, 3, 3, 10" GotKeyboardFocus="KeySelectedBox" ToolTip="Space between Parts." PreviewTextInput="PreviewText"/>
+            </StackPanel>
+
+
+            <TextBlock Background="#FF616266" Height="3"/>
+
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="PartXText" Text="Part X:" HorizontalAlignment="Center" Foreground="#FFEAEAEE" Margin="27, 10, 3, 0"/>
+                <TextBlock x:Name="PartYText" Text="Part Y:" HorizontalAlignment="Center" Foreground="#FFEAEAEE" Margin="68, 10, 3, 0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="xbox" Text="0" Width="90" Height="18" Margin="27, 3, 3, 2" GotKeyboardFocus="KeySelectedBox" PreviewTextInput="PreviewText"/>
+                <TextBox x:Name="ybox" Text="0" Width="90" Height="18" Margin="10, 3, 0, 2" GotKeyboardFocus="KeySelectedBox" PreviewTextInput="PreviewText"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Amount:"  Margin="27, 3, 0, 0" Foreground="#FFEAEAEE"/>
+                <TextBlock Text="Thickness:"  Margin="61, 3, 0, 0" Foreground="#FFEAEAEE"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="abox" Text="0" Width="90" Height="18" Margin="27, 2, 3, 8" GotKeyboardFocus="KeySelectedBox" PreviewTextInput="PreviewText"/>
+                <TextBox x:Name="tbox" Text="0" Width="90" Height="18" Margin="10, 2, 3, 8" GotKeyboardFocus="KeySelectedBox" PreviewTextInput="PreviewText"/>
+            </StackPanel>
+            <Button x:Name="add_btn" Content="Add" HorizontalAlignment="Center" Width="80" Height="18" Margin="0, 2, 0, 10" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Click="ClickAddPart"/>
+
+            <TextBlock Background="#FF616266" Height="3" Foreground="#FFEAEAEE"/>
+            <TextBlock Text="Partlist:" Margin="10, 4, 0, 2" Foreground="#FFEAEAEE"/>
+        </StackPanel>
+        
+        <ListView x:Name="part_box" Grid.Column="3" Grid.Row="8" Width="234" Margin="10, 0, 3, 10">
+                <ListView.View>
+                    <GridView x:Name="grdNames">
+                    <GridViewColumn Width="47" DisplayMemberBinding="{Binding Width}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="PartWidth" Click="SetOrder" Content=" x  &#x25B2;"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="47" DisplayMemberBinding="{Binding Height}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="PartHeight" Click="SetOrder" Content="  y  &#x25B2;"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="45" DisplayMemberBinding="{Binding Thickness}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="PartThickness" Click="SetOrder" Content="  T  &#x25B2;"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="45" DisplayMemberBinding="{Binding Amount}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="PartAmount" Click="SetOrder" Content=" A  &#x25B2;"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="51" DisplayMemberBinding="{Binding Bar}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader x:Name="PartBar" Click="SetOrder" Content= "Bar &#x25B2;"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                </GridView>
+                </ListView.View>
+            </ListView>
+
+
+
+
+        <StackPanel Grid.Column="3" Grid.Row="9">
+
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="PartAdd" Content="+" Width="40" Height="18" Margin="27, 0, 0, 5" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Click="ClickPartAdd"/>
+                <Button x:Name="PartSub" Content="-" Width="40" Height="18" Margin="10, 0, 3, 5" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Click="ClickPartSub"/>
+                <Button x:Name="PartUp" Content="Up" Width="40" Height="18" Margin="10, 0, 0, 5" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Click="ClickPartUp"/>
+                <Button x:Name="PartDown" Content="Down" Width="40" Height="18" Margin="10, 0, 3, 5" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Click="ClickPartDown"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="del_btn" Content="Remove" HorizontalAlignment="Center" Width="90" Height="18" Margin="27, 2, 3, 10"  Background="#FF1A1A1B" Foreground="#FFEAEAEE" Click="ClickDelPart"/>
+                <Button x:Name="del_all_btn" Content="Remove All" HorizontalAlignment="Center" Width="90" Height="18" Margin="10, 2, 0, 10" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Click="ClickDelAllParts"/>
+            </StackPanel>
+
+
+            <TextBlock Background="#FF616266" Height="3"/>
+        </StackPanel>
+
+        
+        <TextBlock x:Name="infobox" Grid.Column="3" Grid.Row="10" HorizontalAlignment="Left" Margin="10, 5, 0, 5" Foreground="#FFEAEAEE"/>
+
+
+        <TextBlock Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="6" Background="#FF616266" Height="3"/>
+    </Grid>
+</Window>
