@@ -143,7 +143,7 @@
             
             <TextBlock Background="#FF616266" Height="3" Foreground="#FFEAEAEE" Width="220"/>
             
-            <TextBlock x:Name="infobox" Height="49" Margin="10" Foreground="#FFEAEAEE"/>
+            <TextBlock x:Name="infobox" Height="39" Margin="10" Foreground="#FFEAEAEE"/>
             <TextBlock Background="#FF616266" Height="3" Foreground="#FFEAEAEE" Width="220"/>
 
             <Button x:Name="close_btn" Content="Close" HorizontalAlignment="Center" Width="90" Height="18" Margin="17, 10, 3, 10" Background="#FF1A1A1B" Foreground="#FFEAEAEE" Click="ClickClose"/>
