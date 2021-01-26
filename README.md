@@ -2,7 +2,7 @@
 
 ------------------------------------------------------------------------------------------------
 
-This software helps you to find the best way to cut 1D and 2D objects.
+This software helps you to find the best way to cut 1D and 2D objects (Rectangular shapes only).
 
 You you find more information how it works in the HelpTexts.cs file.
 
@@ -12,7 +12,7 @@ The methods to find the best solution are in Calc.cs.
 
 Demo Video: [YoutTube](https://youtu.be/6DyUwMnfYok)
 
-Download .exe [here](https://drive.google.com/file/d/1YuSrGlw8qQyhYzUPHYuwo87z7bsVQ6H3/view?usp=sharing).
+Download .exe [here](https://drive.google.com/file/d/1mSUnfqPVJw6AELIOFfmbHsx51t96_uVf/view?usp=sharing).
 
 ------------------------------------------------------------------------------------------------
 
@@ -22,7 +22,7 @@ Download .exe [here](https://drive.google.com/file/d/1YuSrGlw8qQyhYzUPHYuwo87z7b
 <img src="https://github.com/Hendrik-Jacobs/Cutting_Optimizer_v1.1/blob/main/Screenshots/BoardManagerScreenshot.png">
 
 - Board Manager tables and options are saved in a SQLite database.
-- Listboxes can be sorted by column. (Main Window and Board Manager)
+- Lists can be sorted by column. (Main Window and Board Manager)
 
 ------------------------------------------------------------------------------------------------
 
